@@ -56,3 +56,8 @@ export interface IProductUpdate {
   saleEnd?: Date | null
   saleValue?: number | null
 }
+
+export interface ErrorHandling {
+  status: number
+  message: string
+}
