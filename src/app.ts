@@ -1,9 +1,6 @@
 import express from "express"
+import "dotenv/config"
 
 const app = express()
-
-app.get("/test", (req, res) => {
-  res.status(200).send("Test")
-})
 
 export default app
