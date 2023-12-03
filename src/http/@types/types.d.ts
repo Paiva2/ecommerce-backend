@@ -3,17 +3,17 @@ export interface IUser {
   email: string
   password: string
   fullName: string
-  profileImage?: string
-  contact: string
-  birthDate: Date
-  address?: IUserAddress
   role: "admin" | "client"
   createdAt: Date
   updatedAt: Date
+
+  profile?: IUserProfile
 }
 
-export interface IUserAddress {
-  userId?: string
+export interface IUserProfile {
+  profileImage?: string
+  contact: string
+  birthDate: Date
   street: string
   houseNumber: string
   neighbourhood: string
@@ -21,6 +21,8 @@ export interface IUserAddress {
   country: string
   city: string
   city: string
+
+  userId?: string // FK
 }
 
 export interface IProduct {
@@ -34,4 +36,22 @@ export interface IProduct {
   colors: string
   gender: string
   category: string
+  isOnSale?: boolean
+  saleEnd?: Date | null
+  saleValue?: number | null
+}
+
+export interface IProductUpdate {
+  name?: string
+  value?: number
+  quantity?: number
+  description?: string
+  image?: string
+  sizes?: string
+  colors?: string
+  gender?: string
+  category?: string
+  isOnSale?: boolean
+  saleEnd?: Date | null
+  saleValue?: number | null
 }

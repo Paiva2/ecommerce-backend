@@ -33,10 +33,7 @@ describe("Insert new product to store Service", () => {
       email: "johndoe@test.com",
       fullName: "John Doe",
       password: "12345678",
-      profileImage: "any pic url",
       role: "admin",
-      contact: "99999999999",
-      birthDate: new Date(),
       createdAt: new Date(),
       updatedAt: new Date(),
     })
@@ -62,6 +59,9 @@ describe("Insert new product to store Service", () => {
         colors: newProduct.colors,
         gender: newProduct.gender,
         category: newProduct.category,
+        isOnSale: false,
+        saleEnd: null,
+        saleValue: null,
       })
     )
   })
@@ -98,10 +98,7 @@ describe("Insert new product to store Service", () => {
       email: "johndoeclient@test.com",
       fullName: "John Doe Client",
       password: "12345678",
-      profileImage: "any pic url",
       role: "client",
-      contact: "99999999999",
-      birthDate: new Date(),
       createdAt: new Date(),
       updatedAt: new Date(),
     })

@@ -35,10 +35,7 @@ describe("Get all products service", () => {
       email: "johndoe@test.com",
       fullName: "John Doe",
       password: "12345678",
-      profileImage: "any pic url",
       role: "admin",
-      contact: "99999999999",
-      birthDate: new Date(),
       createdAt: new Date(),
       updatedAt: new Date(),
     })
@@ -85,6 +82,9 @@ describe("Get all products service", () => {
           colors: productOne.colors,
           gender: productOne.gender,
           category: productOne.category,
+          isOnSale: false,
+          saleEnd: null,
+          saleValue: null,
         }),
 
         expect.objectContaining({
@@ -98,6 +98,9 @@ describe("Get all products service", () => {
           colors: productTwo.colors,
           gender: productTwo.gender,
           category: productTwo.category,
+          isOnSale: false,
+          saleEnd: null,
+          saleValue: null,
         }),
       ],
     })
@@ -144,6 +147,9 @@ describe("Get all products service", () => {
           colors: twentyOne.colors,
           gender: twentyOne.gender,
           category: twentyOne.category,
+          isOnSale: false,
+          saleEnd: null,
+          saleValue: null,
         }),
 
         expect.objectContaining({
@@ -157,6 +163,9 @@ describe("Get all products service", () => {
           colors: twentyTwo.colors,
           gender: twentyTwo.gender,
           category: twentyTwo.category,
+          isOnSale: false,
+          saleEnd: null,
+          saleValue: null,
         }),
 
         expect.objectContaining({
@@ -170,6 +179,9 @@ describe("Get all products service", () => {
           colors: twentyThree.colors,
           gender: twentyThree.gender,
           category: twentyThree.category,
+          isOnSale: false,
+          saleEnd: null,
+          saleValue: null,
         }),
       ],
     })
@@ -199,6 +211,9 @@ describe("Get all products service", () => {
           colors: productOne.colors,
           gender: productOne.gender,
           category: productOne.category,
+          isOnSale: false,
+          saleEnd: null,
+          saleValue: null,
         }),
       ],
     })
