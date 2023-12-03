@@ -69,6 +69,7 @@ describe("Update product informations service", () => {
     expect(updatedProduct).toEqual(
       expect.objectContaining({
         ...productOne,
+        active: true,
         name: "Update product name",
         description: "Update product description",
         isOnSale: true,

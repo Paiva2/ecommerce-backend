@@ -1,7 +1,7 @@
 import InMemoryProduct from "../../in-memory/InMemoryProduct"
 import InMemoryUser from "../../in-memory/InMemoryUser"
 import InsertProductToStoreService from "../product/insertProductToStoreService"
-import GetAllProductsService from "../product/getAllProductsService"
+import GetAllProductsForAdminService from "../product/getAllProductsForAdminService"
 import { randomUUID } from "crypto"
 import { IProduct, IUser } from "../../@types/types"
 
@@ -11,7 +11,7 @@ let inMemoryProduct: InMemoryProduct
 let createdUser: IUser
 
 let insertProductToStoreService: InsertProductToStoreService
-let sut: GetAllProductsService
+let sut: GetAllProductsForAdminService
 
 const mockProduct = {
   category: "T-Shirt",
@@ -25,7 +25,7 @@ const mockProduct = {
   value: 200,
 }
 
-describe("Get all products service", () => {
+describe("Get all products for admin service", () => {
   beforeEach(async () => {
     inMemoryUser = new InMemoryUser()
     inMemoryProduct = new InMemoryProduct()
@@ -45,7 +45,7 @@ describe("Get all products service", () => {
       inMemoryProduct
     )
 
-    sut = new GetAllProductsService(inMemoryProduct)
+    sut = new GetAllProductsForAdminService(inMemoryProduct, inMemoryUser)
   })
 
   it("should get all store products", async () => {
@@ -65,6 +65,7 @@ describe("Get all products service", () => {
     })
 
     const getProducts = await sut.exec({
+      userId: createdUser.id as string,
       page: 1,
     })
 
@@ -85,6 +86,7 @@ describe("Get all products service", () => {
           isOnSale: false,
           saleEnd: null,
           saleValue: null,
+          active: true,
         }),
 
         expect.objectContaining({
@@ -101,6 +103,7 @@ describe("Get all products service", () => {
           isOnSale: false,
           saleEnd: null,
           saleValue: null,
+          active: true,
         }),
       ],
     })
@@ -130,6 +133,7 @@ describe("Get all products service", () => {
     }
 
     const getProducts = await sut.exec({
+      userId: createdUser.id as string,
       page: 3,
     })
 
@@ -150,6 +154,7 @@ describe("Get all products service", () => {
           isOnSale: false,
           saleEnd: null,
           saleValue: null,
+          active: true,
         }),
 
         expect.objectContaining({
@@ -166,6 +171,7 @@ describe("Get all products service", () => {
           isOnSale: false,
           saleEnd: null,
           saleValue: null,
+          active: true,
         }),
 
         expect.objectContaining({
@@ -182,6 +188,7 @@ describe("Get all products service", () => {
           isOnSale: false,
           saleEnd: null,
           saleValue: null,
+          active: true,
         }),
       ],
     })
@@ -194,6 +201,7 @@ describe("Get all products service", () => {
     })
 
     const getProducts = await sut.exec({
+      userId: createdUser.id as string,
       page: -1,
     })
 
@@ -214,8 +222,58 @@ describe("Get all products service", () => {
           isOnSale: false,
           saleEnd: null,
           saleValue: null,
+          active: true,
         }),
       ],
     })
+  })
+
+  it("should not return products if user id are not provided", async () => {
+    await expect(() => {
+      return sut.exec({
+        userId: "",
+        page: 1,
+      })
+    }).rejects.toEqual(
+      expect.objectContaining({
+        message: "Invalid user id.",
+      })
+    )
+  })
+
+  it("should not return products if user doesn't exists", async () => {
+    await expect(() => {
+      return sut.exec({
+        userId: "Inexistent user id",
+        page: 1,
+      })
+    }).rejects.toEqual(
+      expect.objectContaining({
+        message: "User not found.",
+      })
+    )
+  })
+
+  it("should not return products if user doesn't have admin role permissions", async () => {
+    const clientUser = await inMemoryUser.create({
+      id: randomUUID(),
+      email: "johndoeclient@test.com",
+      fullName: "John Doe Client",
+      password: "12345678",
+      role: "client",
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    })
+
+    await expect(() => {
+      return sut.exec({
+        userId: clientUser.id as string,
+        page: 1,
+      })
+    }).rejects.toEqual(
+      expect.objectContaining({
+        message: "Permission denied.",
+      })
+    )
   })
 })

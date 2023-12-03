@@ -17,6 +17,7 @@ export default class InMemoryProduct implements ProductInterface {
       colors: product.colors,
       gender: product.gender,
       category: product.category,
+      active: true,
       isOnSale: false,
       saleEnd: null,
       saleValue: null,
@@ -58,6 +59,20 @@ export default class InMemoryProduct implements ProductInterface {
       }
     }
 
+    this.products = this.products.map((p) => {
+      if (p.id === productId) {
+        p = product
+      }
+
+      return p
+    })
+
     return product
+  }
+
+  async getActiveOnes(page: number): Promise<IProduct[]> {
+    const filterActives = this.products.filter((product) => product.active)
+
+    return filterActives.slice((page - 1) * 10, page * 10)
   }
 }

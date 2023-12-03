@@ -62,6 +62,7 @@ describe("Insert new product to store Service", () => {
         isOnSale: false,
         saleEnd: null,
         saleValue: null,
+        active: true,
       })
     )
   })

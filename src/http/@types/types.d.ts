@@ -20,7 +20,6 @@ export interface IUserProfile {
   complement?: string
   country: string
   city: string
-  city: string
 
   userId?: string // FK
 }
@@ -30,6 +29,7 @@ export interface IProduct {
   name: string
   value: number
   quantity: number
+  active?: boolean
   description: string
   image: string
   sizes: string
@@ -46,6 +46,7 @@ export interface IProductUpdate {
   value?: number
   quantity?: number
   description?: string
+  active?: boolean
   image?: string
   sizes?: string
   colors?: string

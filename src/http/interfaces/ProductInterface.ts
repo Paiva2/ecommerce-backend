@@ -8,4 +8,6 @@ export default interface ProductInterface {
   findById(productId: string): Promise<IProduct | null>
 
   update(productId: string, fields: IProductUpdate): Promise<IProduct>
+
+  getActiveOnes(page: number): Promise<IProduct[]>
 }
