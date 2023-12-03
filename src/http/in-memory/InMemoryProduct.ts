@@ -23,4 +23,8 @@ export default class InMemoryProduct implements ProductInterface {
 
     return newProduct
   }
+
+  async getAll(page: number): Promise<IProduct[]> {
+    return this.products.slice((page - 1) * 10, page * 10)
+  }
 }

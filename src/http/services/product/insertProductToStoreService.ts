@@ -1,6 +1,6 @@
-import ProductInterface from "../interfaces/ProductInterface"
-import UserInterface from "../interfaces/UserInterface"
-import { IProduct } from "../@types/types"
+import ProductInterface from "../../interfaces/ProductInterface"
+import UserInterface from "../../interfaces/UserInterface"
+import { IProduct } from "../../@types/types"
 
 type InsertProductToStoreServiceRequest = {
   userId: string

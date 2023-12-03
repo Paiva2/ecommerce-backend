@@ -1,6 +1,6 @@
 import InMemoryProduct from "../../in-memory/InMemoryProduct"
 import InMemoryUser from "../../in-memory/InMemoryUser"
-import InsertProductToStoreService from "../insertProductToStoreService"
+import InsertProductToStoreService from "../product/insertProductToStoreService"
 import { randomUUID } from "crypto"
 import { IProduct, IUser } from "../../@types/types"
 
@@ -24,7 +24,7 @@ const mockProduct = {
 }
 
 describe("Insert new product to store Service", () => {
-  beforeAll(async () => {
+  beforeEach(async () => {
     inMemoryUser = new InMemoryUser()
     inMemoryProduct = new InMemoryProduct()
 
