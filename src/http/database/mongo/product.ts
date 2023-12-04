@@ -28,18 +28,57 @@ export default class ProductMongo implements ProductInterface {
   }
 
   async getAll(page: number): Promise<IProduct[]> {
-    throw new Error("Method not implemented.")
+    const perPage = 10
+    const product = (await ProductModel.find({})
+      .skip((page - 1) * perPage)
+      .limit(page * perPage)) as IProduct[]
+
+    return product
   }
 
   async findById(productId: string): Promise<IProduct | null> {
-    throw new Error("Method not implemented.")
+    const getProduct = (await ProductModel.findOne({
+      id: productId,
+    }).lean()) as IProduct | null
+
+    return getProduct
   }
 
   async update(productId: string, fields: IProductUpdate): Promise<IProduct> {
-    throw new Error("Method not implemented.")
+    const fieldsToUpdate = Object.keys(fields)
+
+    const currentProduct = (await ProductModel.findOne({
+      id: productId,
+    }).lean()) as IProduct
+
+    let productUpdated = currentProduct
+
+    for (const field of fieldsToUpdate) {
+      productUpdated = {
+        ...productUpdated,
+        [field]: fields[field as keyof typeof fields],
+      }
+    }
+
+    const updatedProduct = (await ProductModel.findOneAndUpdate(
+      {
+        id: productId,
+      },
+      productUpdated
+    )) as IProduct
+
+    return updatedProduct
   }
 
   async getActiveOnes(page: number): Promise<IProduct[]> {
-    throw new Error("Method not implemented.")
+    const perPage = 10
+
+    const getProducts = (await ProductModel.find({
+      active: true,
+    })
+      .skip((page - 1) * perPage)
+      .limit(page * perPage)) as IProduct[]
+
+    return getProducts
   }
 }

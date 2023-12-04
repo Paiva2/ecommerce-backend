@@ -5,7 +5,7 @@ const { Schema } = mongoose
 
 const productSchema = new Schema({
   id: {
-    type: "UUID",
+    type: String,
     default: () => randomUUID(),
     unique: true,
   },

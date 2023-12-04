@@ -2,21 +2,20 @@ import { Request, Response } from "express"
 import { ErrorHandling } from "../../@types/types"
 import Factory from "../factory"
 
-export default class InsertProductToStoreController {
+export default class UpdateProductInformationsController {
   public static async handle(req: Request, res: Response) {
-    const { product } = req.body
+    const { productId, fields } = req.body
 
-    //TODO: JWT Validation
-
-    const { insertProductToStoreService } = await Factory.exec()
+    const { updateProductInformationsService } = await Factory.exec()
 
     try {
-      await insertProductToStoreService.exec({
+      await updateProductInformationsService.exec({
+        productId,
         userId: "",
-        product,
+        fields,
       })
 
-      return res.status(201).send({ message: "Product created successfully." })
+      return res.status(204).send({ message: "Update successful." })
     } catch (e) {
       const error = e as ErrorHandling
 
