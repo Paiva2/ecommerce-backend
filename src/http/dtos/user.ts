@@ -16,3 +16,8 @@ export const registerUserDto = z.object({
     profileImage: z.string(),
   }),
 })
+
+export const authUserDto = z.object({
+  email: z.string().email(),
+  password: z.string(),
+})
