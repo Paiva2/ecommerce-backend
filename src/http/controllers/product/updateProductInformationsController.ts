@@ -1,12 +1,12 @@
 import { Request, Response } from "express"
 import { ErrorHandling } from "../../@types/types"
-import Factory from "../factory"
+import ProductFactory from "../factory/productFactory"
 
 export default class UpdateProductInformationsController {
   public static async handle(req: Request, res: Response) {
     const { productId, fields } = req.body
 
-    const { updateProductInformationsService } = await Factory.exec()
+    const { updateProductInformationsService } = await ProductFactory.exec()
 
     try {
       await updateProductInformationsService.exec({

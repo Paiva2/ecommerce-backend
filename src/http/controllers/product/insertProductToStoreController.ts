@@ -1,6 +1,7 @@
 import { Request, Response } from "express"
 import { ErrorHandling } from "../../@types/types"
-import Factory from "../factory"
+import Factory from "../factory/productFactory"
+import ProductFactory from "../factory/productFactory"
 
 export default class InsertProductToStoreController {
   public static async handle(req: Request, res: Response) {
@@ -8,7 +9,7 @@ export default class InsertProductToStoreController {
 
     //TODO: JWT Validation
 
-    const { insertProductToStoreService } = await Factory.exec()
+    const { insertProductToStoreService } = await ProductFactory.exec()
 
     try {
       await insertProductToStoreService.exec({

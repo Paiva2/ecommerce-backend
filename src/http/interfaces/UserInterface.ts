@@ -4,4 +4,6 @@ export default interface UserInterface {
   create(user: IUser): Promise<IUser>
 
   findById(userId: string): Promise<IUser | null>
+
+  findByEmail(email: string): Promise<IUser | null>
 }

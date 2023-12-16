@@ -22,7 +22,7 @@ export default class GetAllProductsForAdminService {
     userId,
     page,
   }: GetAllProductsServiceRequest): Promise<GetAllProductsServiceResponse> {
-    /*     if (!userId) {
+    if (!userId) {
       throw {
         status: 422,
         message: "Invalid user id.",
@@ -41,7 +41,7 @@ export default class GetAllProductsForAdminService {
         status: 403,
         message: "Permission denied.",
       }
-    } */
+    }
 
     if (page < 1) {
       page = 1

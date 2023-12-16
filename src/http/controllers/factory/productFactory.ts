@@ -5,7 +5,7 @@ import InsertProductToStoreService from "../../services/product/insertProductToS
 import ListStoreProductsService from "../../services/product/listStoreProductsService"
 import UpdateProductInformationsService from "../../services/product/updateProductInformationsService"
 
-export default class Factory {
+export default class ProductFactory {
   public static async exec() {
     const productModel = new ProductMongo()
     const userModel = new UserPg()

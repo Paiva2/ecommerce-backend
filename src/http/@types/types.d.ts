@@ -3,13 +3,12 @@ export interface IUser {
   email: string
   password: string
   fullName: string
-  role: "admin" | "client"
-  createdAt: Date
-  updatedAt: Date
+  role?: "admin" | "client" | string
+  createdAt?: Date
+  updatedAt?: Date
 
   profile?: IUserProfile
 }
-
 export interface IUserProfile {
   profileImage?: string
   contact: string
@@ -17,7 +16,7 @@ export interface IUserProfile {
   street: string
   houseNumber: string
   neighbourhood: string
-  complement?: string
+  complement: string | null
   country: string
   city: string
 

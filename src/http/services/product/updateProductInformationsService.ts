@@ -34,7 +34,7 @@ export default class UpdateProductInformationsService {
     productId,
     fields,
   }: UpdateProductInformationsServiceRequest): Promise<UpdateProductInformationsServiceResponse> {
-    /*     if (!userId) {
+    if (!userId) {
       throw {
         status: 422,
         message: "Invalid user id.",
@@ -44,7 +44,7 @@ export default class UpdateProductInformationsService {
         status: 422,
         message: "Invalid product id.",
       }
-    } */
+    }
 
     const doesProductExists = await this.productInterface.findById(productId)
 
@@ -55,7 +55,7 @@ export default class UpdateProductInformationsService {
       }
     }
 
-    /*     const getUser = await this.userInterface.findById(userId)
+    const getUser = await this.userInterface.findById(userId)
 
     if (!getUser) {
       throw {
@@ -67,7 +67,7 @@ export default class UpdateProductInformationsService {
         status: 403,
         message: "Permission denied.",
       }
-    } */
+    }
 
     if (!Object.keys(fields).length) return doesProductExists
 

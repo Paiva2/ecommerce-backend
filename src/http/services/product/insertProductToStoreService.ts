@@ -29,7 +29,7 @@ export default class InsertProductToStoreService {
     product,
     userId,
   }: InsertProductToStoreServiceRequest): Promise<InsertProductToStoreServiceResponse> {
-    /*     if (!userId) {
+    if (!userId) {
       throw {
         status: 422,
         message: "Invalid user id.",
@@ -48,7 +48,7 @@ export default class InsertProductToStoreService {
         status: 403,
         message: "Permission denied.",
       }
-    } */
+    }
 
     const getProductFields = Object.keys(product)
 

@@ -19,7 +19,7 @@ export default class InMemoryUser implements UserInterface {
       email: user.email,
       password: user.password,
       fullName: user.fullName,
-      role: user.role,
+      role: user.role ?? "client",
       createdAt: new Date(),
       updatedAt: new Date(),
     }
@@ -27,5 +27,13 @@ export default class InMemoryUser implements UserInterface {
     this.users.push(newUser)
 
     return newUser
+  }
+
+  async findByEmail(email: string): Promise<IUser | null> {
+    const findUser = this.users.find((user) => user.email === email)
+
+    if (!findUser) return null
+
+    return findUser
   }
 }
