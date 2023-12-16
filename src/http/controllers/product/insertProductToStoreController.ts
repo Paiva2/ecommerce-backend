@@ -1,18 +1,19 @@
 import { Request, Response } from "express"
 import { ErrorHandling } from "../../@types/types"
 import ProductFactory from "../factory/productFactory"
+import jwtDecode from "../../utils/jwtDecode"
 
 export default class InsertProductToStoreController {
   public static async handle(req: Request, res: Response) {
     const { product } = req.body
 
-    //TODO: JWT Validation
+    const getToken = jwtDecode(req.headers.authorization as string)
 
     const { insertProductToStoreService } = await ProductFactory.exec()
 
     try {
       await insertProductToStoreService.exec({
-        userId: "",
+        userId: getToken.sub,
         product,
       })
 
