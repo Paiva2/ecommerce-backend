@@ -1,8 +1,9 @@
 import { Express } from "express"
-import { authUserDto, registerUserDto } from "../dtos/user"
+import { authUserDto, forgotPasswordDto, registerUserDto } from "../dtos/user"
 import RegisterUserController from "../controllers/user/registerUserController"
 import dtoValidation from "../middleware/dtoValidation"
 import AuthUserController from "../controllers/user/authUserController"
+import ForgotPasswordController from "../controllers/user/forgotPasswordController"
 
 export default function userRoutes(app: Express) {
   app.post(
@@ -12,4 +13,10 @@ export default function userRoutes(app: Express) {
   )
 
   app.post("/login", [dtoValidation(authUserDto)], AuthUserController.handle)
+
+  app.patch(
+    "/forgot-password",
+    [dtoValidation(forgotPasswordDto)],
+    ForgotPasswordController.handle
+  )
 }

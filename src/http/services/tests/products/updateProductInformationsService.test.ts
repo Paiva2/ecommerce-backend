@@ -1,9 +1,9 @@
-import InMemoryProduct from "../../in-memory/InMemoryProduct"
-import InMemoryUser from "../../in-memory/InMemoryUser"
-import InsertProductToStoreService from "../product/insertProductToStoreService"
+import InMemoryProduct from "../../../in-memory/InMemoryProduct"
+import InMemoryUser from "../../../in-memory/InMemoryUser"
+import InsertProductToStoreService from "../../product/insertProductToStoreService"
 import { randomUUID } from "crypto"
-import { IUser } from "../../@types/types"
-import UpdateProductInformationsService from "../product/updateProductInformationsService"
+import { IUser } from "../../../@types/types"
+import UpdateProductInformationsService from "../../product/updateProductInformationsService"
 
 let inMemoryUser: InMemoryUser
 let inMemoryProduct: InMemoryProduct

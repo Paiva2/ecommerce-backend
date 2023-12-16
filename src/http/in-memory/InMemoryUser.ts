@@ -36,4 +36,22 @@ export default class InMemoryUser implements UserInterface {
 
     return findUser
   }
+
+  async updatePassword(userId: string, newPassword: string): Promise<IUser> {
+    let userUpdated = {} as IUser
+
+    const updateUsers = this.users.map((user) => {
+      if (user.id === userId) {
+        user.password = newPassword
+
+        userUpdated = user
+      }
+
+      return user
+    })
+
+    this.users = updateUsers
+
+    return userUpdated
+  }
 }

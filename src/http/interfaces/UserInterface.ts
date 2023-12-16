@@ -6,4 +6,6 @@ export default interface UserInterface {
   findById(userId: string): Promise<IUser | null>
 
   findByEmail(email: string): Promise<IUser | null>
+
+  updatePassword(userId: string, newPassword: string): Promise<IUser>
 }

@@ -39,4 +39,17 @@ export default class UserPg implements UserInterface {
 
     return findUser
   }
+
+  async updatePassword(userId: string, newPassword: string): Promise<IUser> {
+    const updatePassword = await prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        password: newPassword,
+      },
+    })
+
+    return updatePassword
+  }
 }

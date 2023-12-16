@@ -1,8 +1,8 @@
-import InMemoryProduct from "../../in-memory/InMemoryProduct"
-import InMemoryUser from "../../in-memory/InMemoryUser"
-import InsertProductToStoreService from "../product/insertProductToStoreService"
+import InMemoryProduct from "../../../in-memory/InMemoryProduct"
+import InMemoryUser from "../../../in-memory/InMemoryUser"
+import InsertProductToStoreService from "../../product/insertProductToStoreService"
 import { randomUUID } from "crypto"
-import { IProduct, IUser } from "../../@types/types"
+import { IProduct, IUser } from "../../../@types/types"
 
 let inMemoryUser: InMemoryUser
 let inMemoryProduct: InMemoryProduct

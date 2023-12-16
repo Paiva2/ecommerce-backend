@@ -1,7 +1,7 @@
-import InMemoryUser from "../../in-memory/InMemoryUser"
-import InMemoryUserProfile from "../../in-memory/inMemoryUserProfile"
-import AuthUserService from "../user/authUserService"
-import RegisterUserService from "../user/registerUserService"
+import InMemoryUser from "../../../in-memory/InMemoryUser"
+import InMemoryUserProfile from "../../../in-memory/inMemoryUserProfile"
+import AuthUserService from "../../user/authUserService"
+import RegisterUserService from "../../user/registerUserService"
 
 let inMemoryUser: InMemoryUser
 let inMemoryUserProfile: InMemoryUserProfile

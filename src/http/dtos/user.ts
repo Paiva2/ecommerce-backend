@@ -21,3 +21,8 @@ export const authUserDto = z.object({
   email: z.string().email(),
   password: z.string(),
 })
+
+export const forgotPasswordDto = z.object({
+  email: z.string().email(),
+  newPassword: z.string(),
+})

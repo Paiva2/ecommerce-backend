@@ -12,8 +12,10 @@ const dtoValidation = (
       next()
     } catch (e) {
       if (e instanceof ZodError) {
+        const dtoErrors = fromZodError(e).details
+
         return res.status(400).send({
-          errors: fromZodError(e),
+          errors: dtoErrors,
           message: "Validation failed",
         })
       }

@@ -1,9 +1,9 @@
-import InMemoryProduct from "../../in-memory/InMemoryProduct"
-import InMemoryUser from "../../in-memory/InMemoryUser"
-import InsertProductToStoreService from "../product/insertProductToStoreService"
-import GetAllProductsForAdminService from "../product/getAllProductsForAdminService"
+import InMemoryProduct from "../../../in-memory/InMemoryProduct"
+import InMemoryUser from "../../../in-memory/InMemoryUser"
+import InsertProductToStoreService from "../../product/insertProductToStoreService"
+import ListStoreProductsService from "../../product/listStoreProductsService"
 import { randomUUID } from "crypto"
-import { IProduct, IUser } from "../../@types/types"
+import { IProduct, IUser } from "../../../@types/types"
 
 let inMemoryUser: InMemoryUser
 let inMemoryProduct: InMemoryProduct
@@ -11,7 +11,7 @@ let inMemoryProduct: InMemoryProduct
 let createdUser: IUser
 
 let insertProductToStoreService: InsertProductToStoreService
-let sut: GetAllProductsForAdminService
+let sut: ListStoreProductsService
 
 const mockProduct = {
   category: "T-Shirt",
@@ -25,7 +25,7 @@ const mockProduct = {
   value: 200,
 }
 
-describe("Get all products for admin service", () => {
+describe("List store products service", () => {
   beforeEach(async () => {
     inMemoryUser = new InMemoryUser()
     inMemoryProduct = new InMemoryProduct()
@@ -45,10 +45,10 @@ describe("Get all products for admin service", () => {
       inMemoryProduct
     )
 
-    sut = new GetAllProductsForAdminService(inMemoryProduct, inMemoryUser)
+    sut = new ListStoreProductsService(inMemoryProduct)
   })
 
-  it("should get all store products", async () => {
+  it("should get all store products in active state", async () => {
     const productOne = await insertProductToStoreService.exec({
       userId: createdUser.id as string,
       product: mockProduct,
@@ -64,8 +64,11 @@ describe("Get all products for admin service", () => {
       },
     })
 
+    await inMemoryProduct.update(productTwo.id as string, {
+      active: false,
+    })
+
     const getProducts = await sut.exec({
-      userId: createdUser.id as string,
       page: 1,
     })
 
@@ -88,28 +91,11 @@ describe("Get all products for admin service", () => {
           saleValue: null,
           active: true,
         }),
-
-        expect.objectContaining({
-          id: productTwo.id,
-          name: productTwo.name,
-          value: productTwo.value,
-          quantity: productTwo.quantity,
-          description: productTwo.description,
-          image: productTwo.image,
-          sizes: productTwo.sizes,
-          colors: productTwo.colors,
-          gender: productTwo.gender,
-          category: productTwo.category,
-          isOnSale: false,
-          saleEnd: null,
-          saleValue: null,
-          active: true,
-        }),
       ],
     })
   })
 
-  it("should get all store products with pagination", async () => {
+  it("should get all store products in active state with pagination", async () => {
     let twentyOne = {} as IProduct
     let twentyTwo = {} as IProduct
     let twentyThree = {} as IProduct
@@ -133,7 +119,6 @@ describe("Get all products for admin service", () => {
     }
 
     const getProducts = await sut.exec({
-      userId: createdUser.id as string,
       page: 3,
     })
 
@@ -201,7 +186,6 @@ describe("Get all products for admin service", () => {
     })
 
     const getProducts = await sut.exec({
-      userId: createdUser.id as string,
       page: -1,
     })
 
@@ -226,54 +210,5 @@ describe("Get all products for admin service", () => {
         }),
       ],
     })
-  })
-
-  it("should not return products if user id are not provided", async () => {
-    await expect(() => {
-      return sut.exec({
-        userId: "",
-        page: 1,
-      })
-    }).rejects.toEqual(
-      expect.objectContaining({
-        message: "Invalid user id.",
-      })
-    )
-  })
-
-  it("should not return products if user doesn't exists", async () => {
-    await expect(() => {
-      return sut.exec({
-        userId: "Inexistent user id",
-        page: 1,
-      })
-    }).rejects.toEqual(
-      expect.objectContaining({
-        message: "User not found.",
-      })
-    )
-  })
-
-  it("should not return products if user doesn't have admin role permissions", async () => {
-    const clientUser = await inMemoryUser.create({
-      id: randomUUID(),
-      email: "johndoeclient@test.com",
-      fullName: "John Doe Client",
-      password: "12345678",
-      role: "client",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    })
-
-    await expect(() => {
-      return sut.exec({
-        userId: clientUser.id as string,
-        page: 1,
-      })
-    }).rejects.toEqual(
-      expect.objectContaining({
-        message: "Permission denied.",
-      })
-    )
   })
 })
