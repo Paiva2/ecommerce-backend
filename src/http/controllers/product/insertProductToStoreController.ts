@@ -1,6 +1,5 @@
 import { Request, Response } from "express"
 import { ErrorHandling } from "../../@types/types"
-import Factory from "../factory/productFactory"
 import ProductFactory from "../factory/productFactory"
 
 export default class InsertProductToStoreController {

@@ -3,12 +3,15 @@ import InsertProductToStoreController from "../controllers/product/insertProduct
 import GetAllProductsForAdminController from "../controllers/product/getAllProductsForAdminController"
 import ListStoreProductsController from "../controllers/product/listStoreProductsController"
 import UpdateProductInformationsController from "../controllers/product/updateProductInformationsController"
+import dtoValidation from "../middleware/dtoValidation"
+import { insertProductDto, updateProductInformationsDto } from "../dtos/products"
 
 export default function productRoutes(app: Express) {
   app.post(
     "/product",
     [
       /* ONLY ADMIN */
+      dtoValidation(insertProductDto),
     ],
     InsertProductToStoreController.handle
   )
@@ -33,6 +36,7 @@ export default function productRoutes(app: Express) {
     "/products",
     [
       /* ONLY ADMIN */
+      dtoValidation(updateProductInformationsDto),
     ],
     UpdateProductInformationsController.handle
   )
