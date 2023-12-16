@@ -4,6 +4,7 @@ import AuthUserService from "../../services/user/authUserService"
 import FetchMyProfileService from "../../services/user/fetchMyProfileService"
 import ForgotPasswordService from "../../services/user/forgotPasswordService"
 import RegisterUserService from "../../services/user/registerUserService"
+import UpdateUserProfileService from "../../services/user/updateUserProfileService"
 
 export default class UserFactory {
   public static async exec() {
@@ -21,7 +22,13 @@ export default class UserFactory {
       userProfileModel
     )
 
+    const updateUserProfileService = new UpdateUserProfileService(
+      userModel,
+      userProfileModel
+    )
+
     return {
+      updateUserProfileService,
       fetchMyProfileService,
       forgotPasswordService,
       authUserService,

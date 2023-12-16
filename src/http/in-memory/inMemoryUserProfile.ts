@@ -1,4 +1,4 @@
-import { IUserProfile } from "../@types/types"
+import { IUserProfile, IUserProfileUpdate } from "../@types/types"
 import UserProfileInterface from "../interfaces/UserProfileInterface"
 
 export default class InMemoryUserProfile implements UserProfileInterface {
@@ -33,5 +33,29 @@ export default class InMemoryUserProfile implements UserProfileInterface {
     }
 
     return userProfile
+  }
+
+  async updateFull(
+    userId: string,
+    profile: IUserProfileUpdate
+  ): Promise<IUserProfile> {
+    let updatedProfile = {} as IUserProfile
+
+    const updateProfiles = this.profiles.map((userProfile) => {
+      if (userProfile.userId === userId) {
+        userProfile = {
+          ...userProfile,
+          ...profile,
+        }
+
+        updatedProfile = userProfile
+      }
+
+      return userProfile
+    })
+
+    this.profiles = updateProfiles
+
+    return updatedProfile
   }
 }

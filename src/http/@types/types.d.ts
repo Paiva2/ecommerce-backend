@@ -23,6 +23,18 @@ export interface IUserProfile {
   userId?: string // FK
 }
 
+export interface IUserProfileUpdate {
+  profileImage?: string
+  contact?: string
+  birthDate?: Date
+  street?: string
+  houseNumber?: string
+  neighbourhood?: string
+  complement?: string | null
+  country?: string
+  city?: string
+}
+
 export interface IProduct {
   id?: string
   name: string

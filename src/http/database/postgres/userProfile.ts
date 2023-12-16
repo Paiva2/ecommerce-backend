@@ -1,5 +1,5 @@
 import prisma from "../../../lib/prisma"
-import { IUserProfile } from "../../@types/types"
+import { IUserProfile, IUserProfileUpdate } from "../../@types/types"
 import UserProfileInterface from "../../interfaces/UserProfileInterface"
 
 export default class UserProfilePg implements UserProfileInterface {
@@ -30,5 +30,20 @@ export default class UserProfilePg implements UserProfileInterface {
     })
 
     return getProfile
+  }
+
+  async updateFull(
+    userId: string,
+    profile: IUserProfileUpdate
+  ): Promise<IUserProfile> {
+    const updateProfile = await prisma.profile.update({
+      where: {
+        fkUserId: userId,
+      },
+
+      data: profile,
+    })
+
+    return updateProfile
   }
 }
