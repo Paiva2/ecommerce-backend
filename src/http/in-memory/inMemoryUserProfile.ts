@@ -22,4 +22,16 @@ export default class InMemoryUserProfile implements UserProfileInterface {
 
     return newProfile
   }
+
+  async findByUserId(userId: string): Promise<IUserProfile> {
+    let userProfile = {} as IUserProfile
+
+    const findProfile = this.profiles.find((profile) => profile.userId === userId)
+
+    if (findProfile) {
+      userProfile = findProfile
+    }
+
+    return userProfile
+  }
 }

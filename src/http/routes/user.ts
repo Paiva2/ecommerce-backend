@@ -4,6 +4,8 @@ import RegisterUserController from "../controllers/user/registerUserController"
 import dtoValidation from "../middleware/dtoValidation"
 import AuthUserController from "../controllers/user/authUserController"
 import ForgotPasswordController from "../controllers/user/forgotPasswordController"
+import FetchMyProfileController from "../controllers/user/fetchMyProfileController"
+import verifyToken from "../middleware/verifyToken"
 
 export default function userRoutes(app: Express) {
   app.post(
@@ -19,4 +21,6 @@ export default function userRoutes(app: Express) {
     [dtoValidation(forgotPasswordDto)],
     ForgotPasswordController.handle
   )
+
+  app.get("/profile", [verifyToken], FetchMyProfileController.handle)
 }

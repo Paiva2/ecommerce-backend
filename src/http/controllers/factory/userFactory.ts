@@ -1,6 +1,7 @@
 import UserPg from "../../database/postgres/user"
 import UserProfilePg from "../../database/postgres/userProfile"
 import AuthUserService from "../../services/user/authUserService"
+import FetchMyProfileService from "../../services/user/fetchMyProfileService"
 import ForgotPasswordService from "../../services/user/forgotPasswordService"
 import RegisterUserService from "../../services/user/registerUserService"
 
@@ -15,7 +16,13 @@ export default class UserFactory {
 
     const forgotPasswordService = new ForgotPasswordService(userModel)
 
+    const fetchMyProfileService = new FetchMyProfileService(
+      userModel,
+      userProfileModel
+    )
+
     return {
+      fetchMyProfileService,
       forgotPasswordService,
       authUserService,
       registerUserService,

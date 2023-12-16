@@ -21,4 +21,14 @@ export default class UserProfilePg implements UserProfileInterface {
 
     return createProfile
   }
+
+  async findByUserId(userId: string): Promise<IUserProfile> {
+    const getProfile = await prisma.profile.findUniqueOrThrow({
+      where: {
+        fkUserId: userId,
+      },
+    })
+
+    return getProfile
+  }
 }
