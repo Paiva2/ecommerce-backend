@@ -14,9 +14,10 @@ model User {
   fullName  String   @db.VarChar(50)
   role      String   @db.VarChar(10)
   createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 
-  Profile Profile?
+  Profile   Profile?
+  wish_list WishListItem[]
 }
 
 model Profile {
@@ -33,4 +34,18 @@ model Profile {
   fkUserId      String   @unique @db.VarChar(200)
 
   user User @relation(fields: [fkUserId], references: [id])
+}
+
+model WishListItem {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  fkUserId  String   @db.VarChar(100)
+  name      String   @db.VarChar(50)
+  value     Decimal  @db.Decimal(10, 2)
+  image     String   @db.VarChar(100)
+  productId String   @db.VarChar(100)
+
+  user User @relation(fields: [fkUserId], references: [id])
+
+  @@map("wish_list_item")
 }

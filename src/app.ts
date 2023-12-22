@@ -1,17 +1,19 @@
-import express from "express"
-import mongoConnection from "./lib/mongo"
-import productRoutes from "./http/routes/product"
-import bodyParser from "body-parser"
-import "dotenv/config"
-import userRoutes from "./http/routes/user"
+import express from "express";
+import mongoConnection from "./lib/mongo";
+import productRoutes from "./http/routes/product";
+import bodyParser from "body-parser";
+import "dotenv/config";
+import userRoutes from "./http/routes/user";
+import wishListRoutes from "./http/routes/wishList";
 
-const app = express()
+const app = express();
 
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
-mongoConnection()
+mongoConnection();
 
-productRoutes(app)
-userRoutes(app)
+productRoutes(app);
+userRoutes(app);
+wishListRoutes(app);
 
-export default app
+export default app;
